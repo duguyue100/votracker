@@ -49,21 +49,45 @@ int main(int argc, char ** argv)
   ////// processing
   ofstream fout("output.txt");
 
-  cv::Mat image=imread(imList[0].c_str());
-  
-  VOTDraw votdraw;
+  // load image frame
+  vector<cv::Mat> images;
 
-  cv::Mat out;
+  for (int i=0;i<imList.size();i++)
+    {
+      images.push_back(imread(imList[i].c_str()));
+    }
 
-  votdraw.drawBox(image, out, originalRegion, 1);
+  // Single frame point matching
 
-  imwrite("out.jpg", out);
+  FeatureExtraction featureExtractor;
+
+  vector<KeyPoint> pre_points;
+  vector<KeyPoint> next_points;
+
+  Mat pre=images[0](Rect(originalRegion.x, originalRegion.y, originalRegion.width, originalRegion.height));
+  Mat next=images[1];
+
+  featureExtractor.extractKeyPoints(pre, pre_points, 1);
+  featureExtractor.extractKeyPoints(next, next_points, 1);
+
+  vector<DMatch> goodMatches;
+  vector<Point2f> preGoodPoints;
+  vector<Point2f> nextGoodPoints;
+  featureExtractor.findGoodMatch(pre, next, pre_points, next_points, 2, goodMatches, preGoodPoints, nextGoodPoints);
+
+  Mat image_matches;
+  drawMatches(pre, pre_points, next, next_points, goodMatches, image_matches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+
+  imshow("test", image_matches);
+  waitKey(0);
 
   // to do list
   // 1. draw image [DONE]
-  // 2. implement Kalman filter
-  // 3. draw new image
-  // 4. output box
+  // 2. write a keypoint extractor library [partially DONE]
+  // 3. complete a feature matching for every frame and examine result.
+  // 4. implement Kalman filter
+  // 5. draw new image
+  // 6. output box
 
   fout.close();
 

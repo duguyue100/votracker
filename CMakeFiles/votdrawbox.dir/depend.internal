@@ -64,6 +64,7 @@ CMakeFiles/votdrawbox.dir/src/votdrawboxtest.cpp.o
  /opt/local/include/opencv2/video/background_segm.hpp
  /opt/local/include/opencv2/video/tracking.hpp
  /opt/local/include/opencv2/video/video.hpp
+ include/FeatureExtraction.h
  include/TrackRegion.h
  include/VOTDraw.h
  include/sys_lib.h

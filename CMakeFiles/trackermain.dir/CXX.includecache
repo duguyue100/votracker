@@ -768,6 +768,10 @@ opencv2/video/tracking.hpp
 opencv2/video/background_segm.hpp
 /opt/local/include/opencv2/video/opencv2/video/background_segm.hpp
 
+include/FeatureExtraction.h
+sys_lib.h
+include/sys_lib.h
+
 include/TrackRegion.h
 sys_lib.h
 include/sys_lib.h
@@ -813,6 +817,8 @@ opencv2/contrib/contrib.hpp
 include/opencv2/contrib/contrib.hpp
 opencv2/ml/ml.hpp
 include/opencv2/ml/ml.hpp
+opencv2/calib3d/calib3d.hpp
+include/opencv2/calib3d/calib3d.hpp
 opencv2/nonfree/features2d.hpp
 include/opencv2/nonfree/features2d.hpp
 opencv2/features2d/features2d.hpp
@@ -825,4 +831,6 @@ TrackRegion.h
 include/TrackRegion.h
 VOTDraw.h
 include/VOTDraw.h
+FeatureExtraction.h
+include/FeatureExtraction.h
 

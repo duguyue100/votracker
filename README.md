@@ -7,6 +7,7 @@ This project includes the code for final assignment of WAES3106 Image Processing
 
 + 20140222 [First update, established a framework]
 + 20140227 [Second update, added drawing library]
++ 20140227 [Second update, added feature extraction library]
 
 ### To-do List ##
 

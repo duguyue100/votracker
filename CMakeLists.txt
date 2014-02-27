@@ -13,8 +13,9 @@ find_package (OpenCV REQUIRED)
 include_directories ("${PROJECT_SOURCE_DIR}/lib")
 add_library (votrackerlib SHARED
 	include/sys_lib.h
-        include/TrackRegion.h
+       	include/TrackRegion.h
 	include/VOTDraw.h
+	include/FeatureExtraction.h
 	include/votracker_lib.h)
 set_target_properties(votrackerlib PROPERTIES LINKER_LANGUAGE CXX)
 
