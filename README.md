@@ -6,12 +6,19 @@ This project includes the code for final assignment of WAES3106 Image Processing
 ### Update ###
 
 + 20140222 [First update, established a framework]
++ 20140227 [Second update, added drawing library]
 
 ### To-do List ##
 
-+ Implement a drawing library
++ Implement a drawing library [Partially DONE, Contributor: Leong Chin Poh]
+  - Key points drawing needed.
+  - Segment image drawing needed.
++ Implement a Key points tracking library based on different methods
+  - Optical Flow
+  - Homography
 + Implement Kalman filter library for object tracking
 + Implement Information filter library for object tracking
++ Implement a segmentation library for segmenting object according to features
 
 ### Configuration Guide ###
 

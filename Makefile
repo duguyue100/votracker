@@ -115,6 +115,19 @@ trackermain/fast:
 .PHONY : trackermain/fast
 
 #=============================================================================
+# Target rules for targets named votdrawbox
+
+# Build rule for target.
+votdrawbox: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 votdrawbox
+.PHONY : votdrawbox
+
+# fast build rule for target.
+votdrawbox/fast:
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/build
+.PHONY : votdrawbox/fast
+
+#=============================================================================
 # Target rules for targets named votrackerlib
 
 # Build rule for target.
@@ -126,6 +139,30 @@ votrackerlib: cmake_check_build_system
 votrackerlib/fast:
 	$(MAKE) -f CMakeFiles/votrackerlib.dir/build.make CMakeFiles/votrackerlib.dir/build
 .PHONY : votrackerlib/fast
+
+src/votdrawboxtest.o: src/votdrawboxtest.cpp.o
+.PHONY : src/votdrawboxtest.o
+
+# target to build an object file
+src/votdrawboxtest.cpp.o:
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/src/votdrawboxtest.cpp.o
+.PHONY : src/votdrawboxtest.cpp.o
+
+src/votdrawboxtest.i: src/votdrawboxtest.cpp.i
+.PHONY : src/votdrawboxtest.i
+
+# target to preprocess a source file
+src/votdrawboxtest.cpp.i:
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/src/votdrawboxtest.cpp.i
+.PHONY : src/votdrawboxtest.cpp.i
+
+src/votdrawboxtest.s: src/votdrawboxtest.cpp.s
+.PHONY : src/votdrawboxtest.s
+
+# target to generate assembly for a file
+src/votdrawboxtest.cpp.s:
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/src/votdrawboxtest.cpp.s
+.PHONY : src/votdrawboxtest.cpp.s
 
 src/votrackermain.o: src/votrackermain.cpp.o
 .PHONY : src/votrackermain.o
@@ -160,7 +197,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... trackermain"
+	@echo "... votdrawbox"
 	@echo "... votrackerlib"
+	@echo "... src/votdrawboxtest.o"
+	@echo "... src/votdrawboxtest.i"
+	@echo "... src/votdrawboxtest.s"
 	@echo "... src/votrackermain.o"
 	@echo "... src/votrackermain.i"
 	@echo "... src/votrackermain.s"

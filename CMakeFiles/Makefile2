@@ -91,6 +91,41 @@ clean: CMakeFiles/trackermain.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/votdrawbox.dir
+
+# All Build rule for target.
+CMakeFiles/votdrawbox.dir/all: CMakeFiles/votrackerlib.dir/all
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/depend
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles  2
+	@echo "Built target votdrawbox"
+.PHONY : CMakeFiles/votdrawbox.dir/all
+
+# Include target in all.
+all: CMakeFiles/votdrawbox.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/votdrawbox.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/votdrawbox.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles 0
+.PHONY : CMakeFiles/votdrawbox.dir/rule
+
+# Convenience name for target.
+votdrawbox: CMakeFiles/votdrawbox.dir/rule
+.PHONY : votdrawbox
+
+# clean rule for target.
+CMakeFiles/votdrawbox.dir/clean:
+	$(MAKE) -f CMakeFiles/votdrawbox.dir/build.make CMakeFiles/votdrawbox.dir/clean
+.PHONY : CMakeFiles/votdrawbox.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/votdrawbox.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/votrackerlib.dir
 
 # All Build rule for target.

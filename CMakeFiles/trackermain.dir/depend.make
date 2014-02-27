@@ -64,6 +64,7 @@ CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: /opt/local/include/opencv2/v
 CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: /opt/local/include/opencv2/video/tracking.hpp
 CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: /opt/local/include/opencv2/video/video.hpp
 CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: include/TrackRegion.h
+CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: include/VOTDraw.h
 CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: include/sys_lib.h
 CMakeFiles/trackermain.dir/src/votrackermain.cpp.o: include/votracker_lib.h
 

@@ -49,8 +49,18 @@ int main(int argc, char ** argv)
   ////// processing
   ofstream fout("output.txt");
 
+  cv::Mat image=imread(imList[0].c_str());
+  
+  VOTDraw votdraw;
+
+  cv::Mat out;
+
+  votdraw.drawBox(image, out, originalRegion, 1);
+
+  imwrite("out.jpg", out);
+
   // to do list
-  // 1. draw image
+  // 1. draw image [DONE]
   // 2. implement Kalman filter
   // 3. draw new image
   // 4. output box
