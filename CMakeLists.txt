@@ -16,6 +16,7 @@ add_library (votrackerlib SHARED
        	include/TrackRegion.h
 	include/VOTDraw.h
 	include/FeatureExtraction.h
+	include/VOTools.h
 	include/votracker_lib.h)
 set_target_properties(votrackerlib PROPERTIES LINKER_LANGUAGE CXX)
 
