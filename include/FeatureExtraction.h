@@ -77,7 +77,7 @@ class FeatureExtraction
 	// This parameter can be adjust, now 6 would give a pretty good result for first class
 	for (int i=0;i<pre_descriptor.rows;i++)
 	{
-	  if (matches[i].distance < 6*minDist)
+	  if (matches[i].distance < 4.65*minDist)
 	    {
 	      goodMatches.push_back(matches[i]);
 	    }

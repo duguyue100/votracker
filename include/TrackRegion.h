@@ -24,6 +24,14 @@ class TrackRegion{
       height=inheight;
     }
 
+  TrackRegion(cv::Rect rect)
+    {
+      x=rect.x;
+      y=rect.y;
+      width=rect.width;
+      height=rect.height;
+    }
+
   TrackRegion(string regionInfo)
     {
       int start=0;
