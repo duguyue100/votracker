@@ -25,9 +25,28 @@ This project includes the code for final assignment of WAES3106 Image Processing
 ### Configuration Guide ###
 
 1. Clone the repo to anywhere you want and then `cd` to the directory.
-2. Because this project is written in Mac OS X, if you are using other systems, please remove following directories and files before you run `cmake`: `CMakeFiles`, `CMakeCache.txt` and `libvotrackerlib.dylib` under `lib` folder. [We will fix this later]
-3. Run `cmake .` to configure the environment.
-4. Run `make` to compile the whole project.
+
+`$ git clone https://github.com/duguyue100/votracker`
+
+`$ cd votracker`
+2. Run CMake to configure the environment.
+
+`$ cmake .`
+3. Run `make` to compile the whole project.
+
+`$ make`
+
+4. The files in `resources` are specified for particular user, in case you need to generate your own list, you can follow two methods:
+  - Use VOT evaluation kit to generate image list
+  - [For Linux and Mac OS only]If you don't have VOT evaluation kit, you need to decompress VOT dataset to a folder, in this case, we assume the absolute path of the folder is `/home/user/sequences`, and we want to generate complete image list for `bicycle` folder. you can run following commands:
+
+`$ cd /home/user/sequences`
+
+`$ cd bicycle`
+
+`$ ls -d -1 $PWD/*.jpg > images.txt`
+
+Then a complete image list is generated in `bicycle` folder.
 
 ### Notes ###
 
