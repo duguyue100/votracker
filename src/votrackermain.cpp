@@ -74,36 +74,65 @@ int main(int argc, char ** argv)
   vector<Point2f> preGoodPoints;
   vector<Point2f> nextGoodPoints;
   featureExtractor.findGoodMatch(pre, next, pre_points, next_points, 1, goodMatches, preGoodPoints, nextGoodPoints);
-
-  cout << preGoodPoints.size() << endl;
-  cout << nextGoodPoints.size() << endl;
-
-  cout << goodMatches.size() << endl;
-  Mat image_matches;
-  drawMatches(pre, pre_points, next, next_points, goodMatches, image_matches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-
-  imshow("test", image_matches);
-  waitKey(0);
-
-  
-  cv::Mat H=findHomography(preGoodPoints, nextGoodPoints, CV_RANSAC);
-
-  vector<Point2f> pre_corners(4);
-  pre_corners[0]=cvPoint(0, 0);
-  pre_corners[1]=cvPoint(pre.cols, 0);
-  pre_corners[2]=cvPoint(0, pre.rows);
-  pre_corners[3]=cvPoint(pre.cols, pre.rows);
   vector<Point2f> next_corners(4);
-
-  perspectiveTransform(pre_corners, next_corners, H);
-
-  line( image_matches, next_corners[0] + Point2f( pre.cols, 0), next_corners[1] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
-  line( image_matches, next_corners[1] + Point2f( pre.cols, 0), next_corners[3] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
-  line( image_matches, next_corners[2] + Point2f( pre.cols, 0), next_corners[0] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
-  line( image_matches, next_corners[2] + Point2f( pre.cols, 0), next_corners[3] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
-
-  imshow("test", image_matches);
+  Rect trackedRegion;
+  VOTools tools;
+  VOTDraw votdraw;
+  tools.generateTrackedCorner(pre, preGoodPoints, nextGoodPoints, next_corners);
+  tools.generateBox(next_corners, trackedRegion, 2);
+  votdraw.drawBox(next, next, trackedRegion, 2);
+  imshow("test", next);
   waitKey(0);
+
+  cout << trackedRegion.x << "," << trackedRegion.y << "," << trackedRegion.width << "," << trackedRegion.height << endl;
+
+  ////// Multiple frames match //////
+
+  VOTools tool;
+  FeatureExtraction f;
+  cv::Rect pre_region=Rect(originalRegion.x, originalRegion.y, originalRegion.width, originalRegion.height);
+  for (int i=0;i<images.size()-1 ;i++)
+    {
+      cv::Mat preImage=images[i](pre_region);
+      cv::Mat nextImage=images[i+1];
+
+      // find keypoints
+      vector<KeyPoint> pPoints;
+      vector<KeyPoint> nPoints;
+      f.extractKeyPoints(preImage, pPoints, 1);
+      f.extractKeyPoints(nextImage, nPoints, 1);
+
+      // find good matches
+      vector<DMatch> goodMatch;
+      vector<Point2f> preGood;
+      vector<Point2f> nextGood;
+      f.findGoodMatch(preImage, nextImage, pPoints, nPoints, 1, goodMatch, preGood, nextGood);
+      vector<Point2f> ncorners(4);
+      cv::Rect tRegion;
+
+      // generate result
+      tool.generateTrackedCorner(preImage, preGood, nextGood, ncorners);
+      tool.generateBox(ncorners, tRegion, 2);
+
+      // output result;
+      fout << TrackRegion(tRegion).getRegion() << endl;
+      // reset pre_region
+      pre_region=tRegion;
+
+      // show result
+
+      Mat image_matches;
+      drawMatches(preImage, pPoints, nextImage, nPoints, goodMatch, image_matches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+      
+      imshow("test", image_matches);
+      waitKey(0);
+
+      cv::Mat temp;
+      votdraw.drawBox(nextImage, temp, tRegion, 2);
+      imshow("test1", temp);
+      waitKey(0);
+    }
+
   // to do list
   // 1. draw image [DONE]
   // 2. write a keypoint extractor library [partially DONE]
@@ -111,6 +140,14 @@ int main(int argc, char ** argv)
   // 4. implement Kalman filter
   // 5. draw new image
   // 6. output box
+
+  /*
+  Mat image_matches;
+  drawMatches(pre, pre_points, next, next_points, goodMatches, image_matches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
+
+  imshow("test", image_matches);
+  waitKey(0);
+  */
 
   fout.close();
 
