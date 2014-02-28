@@ -73,14 +73,37 @@ int main(int argc, char ** argv)
   vector<DMatch> goodMatches;
   vector<Point2f> preGoodPoints;
   vector<Point2f> nextGoodPoints;
-  featureExtractor.findGoodMatch(pre, next, pre_points, next_points, 2, goodMatches, preGoodPoints, nextGoodPoints);
+  featureExtractor.findGoodMatch(pre, next, pre_points, next_points, 1, goodMatches, preGoodPoints, nextGoodPoints);
 
+  cout << preGoodPoints.size() << endl;
+  cout << nextGoodPoints.size() << endl;
+
+  cout << goodMatches.size() << endl;
   Mat image_matches;
   drawMatches(pre, pre_points, next, next_points, goodMatches, image_matches, Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
   imshow("test", image_matches);
   waitKey(0);
 
+  
+  cv::Mat H=findHomography(preGoodPoints, nextGoodPoints, CV_RANSAC);
+
+  vector<Point2f> pre_corners(4);
+  pre_corners[0]=cvPoint(0, 0);
+  pre_corners[1]=cvPoint(pre.cols, 0);
+  pre_corners[2]=cvPoint(0, pre.rows);
+  pre_corners[3]=cvPoint(pre.cols, pre.rows);
+  vector<Point2f> next_corners(4);
+
+  perspectiveTransform(pre_corners, next_corners, H);
+
+  line( image_matches, next_corners[0] + Point2f( pre.cols, 0), next_corners[1] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
+  line( image_matches, next_corners[1] + Point2f( pre.cols, 0), next_corners[3] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
+  line( image_matches, next_corners[2] + Point2f( pre.cols, 0), next_corners[0] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
+  line( image_matches, next_corners[2] + Point2f( pre.cols, 0), next_corners[3] + Point2f( pre.cols, 0), Scalar(0, 255, 0), 1 );
+
+  imshow("test", image_matches);
+  waitKey(0);
   // to do list
   // 1. draw image [DONE]
   // 2. write a keypoint extractor library [partially DONE]
