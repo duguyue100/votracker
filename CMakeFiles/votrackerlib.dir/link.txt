@@ -1,1 +1,0 @@
-/opt/local/bin/g++   -dynamiclib -Wl,-headerpad_max_install_names   -o lib/libvotrackerlib.dylib -install_name /Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/lib/libvotrackerlib.dylib  

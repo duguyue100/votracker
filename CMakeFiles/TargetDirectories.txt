@@ -1,3 +1,0 @@
-/Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles/trackermain.dir
-/Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles/votdrawbox.dir
-/Users/dgyHome/Documents/GitHub/vot-toolkit/votracker/votracker/CMakeFiles/votrackerlib.dir
