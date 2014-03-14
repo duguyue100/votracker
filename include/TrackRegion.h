@@ -153,6 +153,12 @@ class TrackRegion{
     return region;
   }
 
+  // get correpsonding cv::Rect object
+  cv::Rect getRectangle()
+    {
+      return Rect(x, y, width, height);
+    }
+
   // print region
   void pringRegion()
   {

@@ -10,6 +10,76 @@ class VOTools
     {
     }
 
+  // Function: select tracked region to constrain
+  // searching region.
+  // img: next image
+  // in: The region in pre image
+  // out: The region in next image
+  void selectTrackedRegion(Mat img,TrackRegion in, TrackRegion & out)
+  {
+    double resizePara=20;
+    out=in;
+    if (out.x>resizePara)
+      out.x=out.x-resizePara;
+    else out.x=0;
+    if (out.y>resizePara)
+      out.y=out.y-resizePara;
+    else out.y=0;
+    if (out.width+2*resizePara<img.cols)
+      out.width+=2*resizePara;
+    else out.width=img.cols;
+    if (out.height+2*resizePara<img.rows)
+      out.height+=2*resizePara;
+    else out.height=img.rows;
+  }
+
+  // Function: select tracked region to constrain
+  // searching region (in cv::Rect)
+  // img: next image
+  // in: the region given by pre image
+  // out: the region given by next image
+  void selectTrackedRegion(Mat img, cv::Rect in, cv::Rect & out)
+  { 
+    double resizePara=20;
+    out=in;
+    if (out.x>resizePara)
+      out.x-=resizePara;
+    else out.x=0;
+    if (out.y>resizePara)
+      out.y-=resizePara;
+    else out.y=0;
+    if (out.width+2*resizePara<img.cols)
+      out.width+=2*resizePara;
+    else out.width=img.cols;
+    if (out.height+2*resizePara<img.rows)
+      out.height+=2*resizePara;
+    else out.height=img.rows;
+  }
+
+  // Function: calculate true region in original
+  // image
+  // originRegion: the original selected region
+  // rescaledRegion: the tracked region in selected region
+  // trueRegion: the actual region in original image.
+  void calculateOriginalRegion(TrackRegion originRegion, TrackRegion rescaledRegion, TrackRegion & trueRegion)
+  {
+    trueRegion=rescaledRegion;
+    trueRegion.x+=originRegion.x;
+    trueRegion.y+=originRegion.y;
+  }
+
+  // Function: calculate true region in original
+  // image
+  // originRegion: the original selected region
+  // rescaledRegion: the tracked region in selected region
+  // trueRegion: the actual region in original image.
+  void calculateOriginalRegion(cv::Rect originRegion, cv::Rect rescaledRegion, cv::Rect & trueRegion)
+  {
+    trueRegion=rescaledRegion;
+    trueRegion.x+=originRegion.x;
+    trueRegion.y+=originRegion.y;
+  }
+
   // Function: this function would generate retangle box based on tracked corners
   // in: a vector which restores 4 tracked corners
   // out: a retangle which is estimated from tracked corner
