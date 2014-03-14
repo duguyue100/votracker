@@ -9,6 +9,7 @@ This project includes the code for final assignment of WAES3106 Image Processing
 + 20140227 [Second update, added drawing library]
 + 20140227 [Second update, added feature extraction library]
 + 20140228 [Third update, added some tools]
++ 20140314 [Fourth update, updated tools and new methods]
 
 ### To-do List ##
 
@@ -53,6 +54,7 @@ Then a complete image list is generated in `bicycle` folder.
 ### Notes ###
 
 1. Currently, we use Flann matcher only to detect the matched file, this could result misdetection after around 20 frames.
+2. In current version, we constrain the search window, the effect for first few frame is fine, however, due to some unknown problems, the box suddenly out of the search region. [20140314]
 
 ### Contact ###
 
