@@ -35,6 +35,7 @@ int main(int argc, char ** argv)
       fin >> input;
       imList.push_back(input);
     }
+
   // the last element is empty, due to nature of the file.
   imList.pop_back();
   fin.close();
@@ -60,13 +61,16 @@ int main(int argc, char ** argv)
   // Single frame point matching
 
   FeatureExtraction featureExtractor;
-
+  VOTools tools;
   vector<KeyPoint> pre_points;
   vector<KeyPoint> next_points;
 
   Mat pre=images[0](Rect(originalRegion.x, originalRegion.y, originalRegion.width, originalRegion.height));
-  Mat next=images[1];
-
+  Mat nextOrigin=images[1];
+  TrackRegion selectedRegion;
+  tools.selectTrackedRegion(nextOrigin, originalRegion, selectedRegion);
+ 
+  Mat next=nextOrigin(Rect(selectedRegion.x, selectedRegion.y, selectedRegion.width, selectedRegion.height));
   featureExtractor.extractKeyPoints(pre, pre_points, 1);
   featureExtractor.extractKeyPoints(next, next_points, 1);
 
@@ -76,10 +80,11 @@ int main(int argc, char ** argv)
   featureExtractor.findGoodMatch(pre, next, pre_points, next_points, 1, goodMatches, preGoodPoints, nextGoodPoints);
   vector<Point2f> next_corners(4);
   Rect trackedRegion;
-  VOTools tools;
   VOTDraw votdraw;
   tools.generateTrackedCorner(pre, preGoodPoints, nextGoodPoints, next_corners);
   tools.generateBox(next_corners, trackedRegion, 2);
+
+  tools.calculateOriginalRegion(selectedRegion.getRectangle(), trackedRegion, trackedRegion);
   votdraw.drawBox(next, next, trackedRegion, 2);
   imshow("test", next);
   waitKey(0);
@@ -94,7 +99,9 @@ int main(int argc, char ** argv)
   for (int i=0;i<images.size()-1 ;i++)
     {
       cv::Mat preImage=images[i](pre_region);
-      cv::Mat nextImage=images[i+1];
+      cv::Mat nextImageOrigin=images[i+1];
+      tools.selectTrackedRegion(nextImageOrigin, pre_region, selectedRegion);
+      cv::Mat nextImage=nextImageOrigin(selectedRegion.getRectangle());
 
       // find keypoints
       vector<KeyPoint> pPoints;
@@ -109,10 +116,11 @@ int main(int argc, char ** argv)
       f.findGoodMatch(preImage, nextImage, pPoints, nPoints, 1, goodMatch, preGood, nextGood);
       vector<Point2f> ncorners(4);
       cv::Rect tRegion;
-
       // generate result
       tool.generateTrackedCorner(preImage, preGood, nextGood, ncorners);
       tool.generateBox(ncorners, tRegion, 2);
+
+      tools.calculateOriginalRegion(selectedRegion.getRectangle(), tRegion, tRegion);
 
       // output result;
       fout << TrackRegion(tRegion).getRegion() << endl;
@@ -128,7 +136,7 @@ int main(int argc, char ** argv)
       waitKey(0);
 
       cv::Mat temp;
-      votdraw.drawBox(nextImage, temp, tRegion, 2);
+      votdraw.drawBox(nextImageOrigin, temp, tRegion, 2);
       imshow("test1", temp);
       waitKey(0);
     }
