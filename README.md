@@ -10,6 +10,7 @@ This project includes the code for final assignment of WAES3106 Image Processing
 + 20140227 [Second update, added feature extraction library]
 + 20140228 [Third update, added some tools]
 + 20140314 [Fourth update, updated tools and new methods]
++ 20140416 [Fifth update, updated utility functions for tracking]
 
 ### To-do List ##
 
@@ -22,6 +23,7 @@ This project includes the code for final assignment of WAES3106 Image Processing
 + Implement Kalman filter library for object tracking
 + Implement Information filter library for object tracking
 + Implement a segmentation library for segmenting object according to features
++ Implement ESS.
 
 ### Configuration Guide ###
 
