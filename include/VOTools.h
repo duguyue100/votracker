@@ -147,4 +147,19 @@ class VOTools
     perspectiveTransform(pre_corners, next_corners, H);
 
   }
+
+  ////// HAAR DETECTOR TOOLS//////
+
+  // Function: this function add a image sample to haar training set
+  // Input:
+  // trainSet: haar training set
+  // img: image sample
+  // rep: repeat how many times 
+  void addToTrainSet(vector<Mat> & trainSet, cv::Mat img, int rep)
+  {
+    for (int i=1;i<=rep;i++)
+      {
+	trainSet.push_back(img);
+      }
+  }
 };
