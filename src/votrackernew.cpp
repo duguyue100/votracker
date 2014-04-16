@@ -4,6 +4,38 @@
 #include "sys_lib.h"
 #include "votracker_lib.h"
 
+void computeWindow(vector<VOTKeyPoint> preO, vector<VOTKeyPoint> B, Rect preW, vector<KeyPoint> keypointsI, cv::Mat descriptorsI, Rect & predictedW)
+{
+  // for ESS
+}
+
+void computeWindow(vector<VOTKeyPoint> preO, vector<VOTKeyPoint> B, TrackRegion preW, vector<KeyPoint> keypointsI, cv::Mat descriptorsI, Rect & predictedW)
+{
+  computeWindow(preO, B, preW.getRectangle(), keypointsI, descriptorsI, predictedW);
+}
+
+void tracking(vector<VOTKeyPoint> preO, vector<VOTKeyPoint> B, Rect preW, vector<KeyPoint> keypointsI, cv::Mat descriptorsI, Rect & predictedW, vector<VOTKeyPoint> & nextO)
+{
+  // for background, seems need to calculate again based on dynamic model
+  nextO=preO;
+  FeatureExtraction featureExtractor;
+  vector<VOTKeyPoint> nextWInRegion;
+  vector<VOTKeyPoint> nextWInBack;
+  vector<VOTKeyPoint> F;
+
+  // compute predicted window
+  computeWindow(preO, B, preW.getRectangle(), keypointsI, descriptorsI, predictedW);
+
+  // compute feature set
+  featureExtractor.computeVOTKeyPoint(region, keypointsI, descriptorsI, nextWInRegion, nextWInBack);
+  featureExtractor.computeFeatureSet(nextWInRegion, preO, B, F);
+
+  // update dynamic model
+  int noPoint=F.size();
+  for (int i=0;i<noPoint;i++)
+    nextO.push_back(F[i]);
+}
+
 int main(int argc, char ** argv)
 {
   string imageList="";
