@@ -29,7 +29,9 @@ This project includes the code for final assignment of WAES3106 Image Processing
 
 1. Clone the repo to anywhere you want and then `cd` to the directory.
 
-`$ git clone https://github.com/duguyue100/votracker`
+```
+$ git clone https://github.com/duguyue100/votracker
+```
 
 `$ cd votracker`
 
